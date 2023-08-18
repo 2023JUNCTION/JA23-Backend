@@ -30,7 +30,7 @@ jobs:
         username: bitnami
         key: ${{ secrets.LIGHTSAIL_SSH_KEY }}
         script: |
-          cd /home/bitnami/O2ARC_V2/backend
+          cd /home/bitnami/JA23-Backend
           git pull origin main
           npm ci
           pm2 reload app
