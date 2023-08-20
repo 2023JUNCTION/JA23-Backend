@@ -33,7 +33,7 @@ export class AppService {
     }
     let result: Combo[] = [undefined, undefined, undefined];
     for (const vvv of user.assigned_combos.filter((val) => val.day === day)) {
-      result[vvv.mealtime - 1] = vvv.combo
+      result[vvv.mealtime - 1] = await this.comboModel.findById(vvv.combo)
 
     }
     return result
@@ -63,7 +63,9 @@ export class AppService {
   async setComboByTags(tags: string[], day: string, combo: Combo, mealtime: number) {
     combo.tags = tags
     await this.userModel.updateMany({ meal_tag: { $all: tags } }, { $pull: { assigned_combos: { day, mealtime } } })
-    await this.userModel.updateMany({ meal_tag: { $all: tags } }, { $push: { assigned_combos: { day, mealtime, combo } } })
+    const cmb = new this.comboModel(combo)
+    const asdf = await cmb.save();
+    await this.userModel.updateMany({ meal_tag: { $all: tags } }, { $push: { assigned_combos: { day, mealtime, combo: cmb } } })
 
   }
 

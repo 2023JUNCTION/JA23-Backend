@@ -3,9 +3,6 @@ import { HydratedDocument } from 'mongoose';
 import { Coach } from './coaches.schema'
 import { Menu } from './menus.schema'
 export type ComboDocument = HydratedDocument<Combo>;
-
-
-
 @Schema()
 export class Combo {
     @Prop()
