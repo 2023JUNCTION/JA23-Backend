@@ -40,7 +40,7 @@ jobs:
         username: bitnami
         host: ${{ secrets.LIGHTSAIL_HOST }}
         key: ${{ secrets.LIGHTSAIL_SSH_KEY }}
-        source: "ecosystem.config.js"
+        source: "ecosystem.config.js package.json package-lock.json"
         target: "/home/bitnami/JA23-Backend"
         
     - name: Transfer Deploy Script use SCP ecosystem
