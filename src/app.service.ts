@@ -47,7 +47,7 @@ export class AppService {
     const insertedmeal = new this.comboModel(combo)
     await insertedmeal.save()
     const meal = await this.userModel.updateOne({ userid }, {
-      $pullAll: {
+      $pull: {
         assigned_combos: { day, mealtime, combo: combo }
       }
     });
@@ -62,7 +62,7 @@ export class AppService {
 
   async setComboByTags(tags: string[], day: string, combo: Combo, mealtime: number) {
     combo.tags = tags
-    await this.userModel.updateMany({ meal_tag: { $all: tags } }, { $pullAll: { assigned_combos: { day, mealtime } } })
+    await this.userModel.updateMany({ meal_tag: { $all: tags } }, { $pull: { assigned_combos: { day, mealtime } } })
     await this.userModel.updateMany({ meal_tag: { $all: tags } }, { $push: { assigned_combos: { day, mealtime, combo } } })
 
   }
