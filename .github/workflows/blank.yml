@@ -42,7 +42,22 @@ jobs:
         key: ${{ secrets.LIGHTSAIL_SSH_KEY }}
         source: "ecosystem.config.js"
         target: "/home/bitnami/JA23-Backend"
-        
+    - name: Transfer Deploy Script use SCP
+      uses: appleboy/scp-action@master
+      with:
+        username: bitnami
+        host: ${{ secrets.LIGHTSAIL_HOST }}
+        key: ${{ secrets.LIGHTSAIL_SSH_KEY }}
+        source: "package-lock.json"
+        target: "/home/bitnami/JA23-Backend"
+    - name: Transfer Deploy Script use SCP
+      uses: appleboy/scp-action@master
+      with:
+        username: bitnami
+        host: ${{ secrets.LIGHTSAIL_HOST }}
+        key: ${{ secrets.LIGHTSAIL_SSH_KEY }}
+        source: "package.json"
+        target: "/home/bitnami/JA23-Backend"
     - name: Transfer Deploy Script use SCP ecosystem
       uses: appleboy/scp-action@master
       with:
@@ -50,7 +65,7 @@ jobs:
         host: ${{ secrets.LIGHTSAIL_HOST }}
         key: ${{ secrets.LIGHTSAIL_SSH_KEY }}
         source: "dist/*"
-        target: "/home/bitnami/JA23-Backend/dist"
+        target: "/home/bitnami/JA23-Backend"
     
     - name: Restart PM2 process
       uses: appleboy/ssh-action@master
@@ -60,4 +75,5 @@ jobs:
         key: ${{ secrets.LIGHTSAIL_SSH_KEY }}
         script: |
           cd /home/bitnami/JA23-Backend
+          npm ci
           pm2 reload app
