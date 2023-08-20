@@ -50,7 +50,7 @@ jobs:
         host: ${{ secrets.LIGHTSAIL_HOST }}
         key: ${{ secrets.LIGHTSAIL_SSH_KEY }}
         source: "dist/*"
-        target: "/home/bitnami/JA23-Backend/dist"
+        target: "/home/bitnami/JA23-Backend"
     
     - name: Restart PM2 process
       uses: appleboy/ssh-action@master
